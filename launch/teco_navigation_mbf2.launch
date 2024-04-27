@@ -1,0 +1,33 @@
+<launch>
+  <arg name="initial_pose_x" default="1.22"/>
+  <arg name="initial_pose_y" default="1.9"/>
+  <arg name="initial_pose_a" default="-1.69"/>
+  <arg name="map_file" default="/home/ros/catkin_ws/maps/bl_map.yaml"/>  
+  <arg name="move_forward_only" default="false"/>
+
+ 
+
+
+  <!-- Map server -->
+  <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)"/>
+
+  <!-- AMCL -->
+  <include file="/home/ros/catkin_ws/launch/amcl.launch">
+    <arg name="initial_pose_x" value="$(arg initial_pose_x)"/>
+    <arg name="initial_pose_y" value="$(arg initial_pose_y)"/>
+    <arg name="initial_pose_a" value="$(arg initial_pose_a)"/>
+  </include>
+  
+  <!-- move_base -->
+   <include file="$(find mbf_advanced)/launch/robot_mbf_recovery.launch"/>
+
+  <!-- rviz -->
+
+    <node pkg="rviz" type="rviz" name="rviz_nav" required="true"
+          args="-d /home/ros/catkin_ws/rviz/robot_mbf_navigation.rviz"/> 
+
+  
+</launch>
+
+
+

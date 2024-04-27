@@ -1,0 +1,25 @@
+ <root main_tree_to_execute = "MainTree" >
+    <BehaviorTree ID="MainTree">
+        <Repeat num_cycles="10">
+            <Fallback name="root">
+
+                <Sequence name="Battery">
+                    <CheckBattery file_path="/home/ros/catkin_ws/src/mbf_tutorials/mbf_advanced/param/battery_level.txt" low_threshold="60"/>
+                    <GoToPoseCharge       name="to_charge_loc"   />
+                    <LookForObject  name="look_in_charge"/>
+                    <Charge30      name="M30" distance="30"  />
+                </Sequence>
+        
+                <Sequence name="Go">
+                    <Sequence name="search_locationA">
+                        <GoToPose       name="Home_to_locA"   />
+                        <LookForObject  name="look_in_locationA"/>
+                    </Sequence>
+                </Sequence>
+
+
+            
+            </Fallback>
+        </Repeat>
+    </BehaviorTree>
+ </root>

@@ -1,0 +1,17 @@
+<launch>
+    <!-- Arguments -->
+
+
+  <node name="move_base_flex" pkg="mbf_costmap_nav" type="mbf_costmap_nav" required="true" output="screen" clear_params="true">
+   
+
+    <rosparam file="/home/ros/catkin_ws/param/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="/home/ros/catkin_ws/param/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="/home/ros/catkin_ws/param/local_costmap_params.yaml" command="load" />
+    <rosparam file="/home/ros/catkin_ws/param/global_costmap_params.yaml" command="load" />
+    <rosparam file="/home/ros/catkin_ws/param/dwa_local_planner_params.yaml" command="load" />
+    <rosparam file="$(find mbf_advanced)/param/move_base_flex_recovery.yaml" command="load"/>
+  </node>
+  
+ 
+</launch>

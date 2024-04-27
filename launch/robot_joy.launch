@@ -1,0 +1,6 @@
+<launch>
+
+  <include file="/home/ros/catkin_ws/src/odombase/launch/odom_joy.launch"/>
+  <include file="/home/ros/catkin_ws/src/lpms_imu/launch/imu.launch"/>
+
+</launch>

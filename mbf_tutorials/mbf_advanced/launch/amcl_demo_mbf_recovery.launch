@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<launch>
+  <!-- Base amcl demo -->
+  <include file="$(find mbf_advanced)/launch/amcl_demo_base.launch"/>
+
+  <!-- Move Base Flex -->
+  <include file="$(find mbf_advanced)/launch/mbf_recovery2.launch"/>
+  
+  <node name="move_base_relay" pkg="mbf_beginner" type="mb_relay_subscriber.py"/>  
+</launch>

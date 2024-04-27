@@ -1,0 +1,21 @@
+<launch>
+
+ <include file="$(find odombase)/launch/odom.launch" />   
+
+ <!-- include file="$(find lpms_imu)/launch/imu.launch" / --> 
+ 
+ <include file="$(find sick_tim)/launch/sick_tim.launch" />
+ 
+ <include file="/home/ros/catkin_ws/launch/gmapping.launch" />    
+ 
+ <node pkg="tf" type="static_transform_publisher" name="laser" args="0.165 0 0 0 0 0 base_link laser 30" />
+ 
+ <!-- node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="teleop" output="screen"/ -->
+  <!-- rviz -->
+  
+
+  <node pkg="rviz" type="rviz" name="rviz_nav" required="true"
+        args="-d /home/ros/catkin_ws/rviz/robot_mbf_navigation.rviz"/> 
+  <node pkg="mbf_beginner" name="mb_relay_subscriber" type="mb_relay_subscriber.py" output="screen" />      
+ </launch>
+    

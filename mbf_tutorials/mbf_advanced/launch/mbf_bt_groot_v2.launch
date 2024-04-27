@@ -1,0 +1,25 @@
+<launch>
+
+<!-- Define parameters -->
+
+
+<!-- Run Gazebo World -->
+<include file="$(find turtlebot3_gazebo)/launch/turtlebot3_world.launch"/>
+
+<!-- Run behavior tree visualization (Groot) -->
+<node pkg="groot" type="Groot" name="groot" output="screen" args="--mode monitor"/>
+
+<!-- Run normal amcl and move base flex nodes -->
+ <include file="$(find mbf_advanced)/launch/amcl_demo_mbf_recovery.launch"/>
+ 
+
+ <!-- Run BTC++ stack after 5 sec -->
+    <node pkg="timed_roslaunch" type="timed_roslaunch.sh"
+    args="5 mbf_advanced mbf_bt_v2.launch"
+    name="timed_roslaunch" output="screen" />
+  
+<!-- RVIZ -->
+ <include file="$(find mbf_beginner)/launch/rviz.launch"/>
+
+
+</launch>

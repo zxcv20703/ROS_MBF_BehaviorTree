@@ -1,0 +1,16 @@
+ <root main_tree_to_execute = "MainTree" >
+    <BehaviorTree ID="MainTree">
+        <Sequence name="root">
+            <Sequence name="Warning 1">
+                <GoToPose       name="Warning rotation 1"   />
+                <LookForObject  name="play warning 1"/>
+            </Sequence>
+
+            <Sequence name="Warning 2">
+                <GoToPose       name="Warning rotation 2" />
+                <LookForObject  name="play warning 2"/>
+            </Sequence>
+            
+        </Sequence>
+    </BehaviorTree>
+ </root>

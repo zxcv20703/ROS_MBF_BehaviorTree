@@ -1,0 +1,36 @@
+<launch>
+
+  <include file="$(find odombase)/launch/odom.launch" />       
+  <!-- include file="$(find odombase)/launch/odom_joy.launch" / -->
+  
+  <!-- include file="$(find lpms_imu)/launch/imu.launch" / --> 
+  <include file="$(find sick_tim)/launch/sick_tim.launch" />
+  
+  <arg name="map_file" default="/home/ros/catkin_ws/maps/EL3FLOOR.yaml"/>  
+  
+  <!-- node name="batterystate" pkg="mbf_advanced" type="battery_monitor.py" output="screen"/ -->  
+
+  <!-- Map server -->
+  <node pkg="map_server" name="map_server" type="map_server" args="$(arg map_file)"/>
+
+  <!-- AMCL -->
+  <include file="/home/ros/catkin_ws/launch/amcl.launch"/>
+  <arg name="move_forward_only" default="false"/>
+
+  <!-- move_base_flex -->
+  <include file="/home/ros/catkin_ws/src/mbf_tutorials/mbf_advanced/launch/robot_mbf_recovery2.launch">
+    <arg name="move_forward_only" value="$(arg move_forward_only)"/>
+    
+  </include>
+  
+  <!-- rviz -->
+  
+  <node pkg="tf" type="static_transform_publisher" name="laser" args="0.165 0 0 0 0 0 base_link laser 30" />  
+  <node pkg="rviz" type="rviz" name="rviz_nav" required="true"
+        args="-d /home/ros/catkin_ws/rviz/robot_mbf_navigation.rviz"/> 
+  <node pkg="mbf_beginner" name="mb_relay_subscriber" type="mb_relay_subscriber.py" output="screen" />       
+
+</launch>
+
+
+

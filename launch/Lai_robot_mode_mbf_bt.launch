@@ -1,0 +1,39 @@
+<launch>
+
+<!-- Define parameters -->
+
+<!-- Run real Robot  -->
+ <include file="$(find odombase)/launch/odom.launch" />   
+ <!-- <include file="$(find lpms_imu)/launch/imu.launch"/> --> 
+ <include file="$(find ao_2d_tof_driver)/launch/ao.launch" /> 
+
+ <!-- Run behavior tree visualization (Groot) -->
+<node pkg="groot" type="Groot" name="groot" output="screen" args="--mode monitor"/>
+
+<!-- Update map -->
+<include file="$(find map_server)/launch/map_saver_update.launch"/>
+
+ <!-- Creating Map -->
+<include file="$(find gmapping)/launch/slam_gmapping_cleaner.launch"/>
+
+<!-- Run Robot Mode Server Action to recieve Commands through rosbridge -->
+<node pkg="actionlib_tutorials" type="rtmode_server" name="rtmode_server" output="screen"/> 
+      
+<!-- Run navigation launch file simultaneously -->
+
+<!-- The name of the navigation node, base on scenario,  is "mbf_bt_v2" -->
+<node pkg="mbf_advanced" type="mbf_bt_v2" name="mbf_bt_v2" output="screen"/> 
+
+<include file="/home/ros/catkin_ws/launch/teco_navigation_mbf.launch"/> 
+
+<!-- timed_roslaunch used to add delay between rtmode_server and rtmode_client node 
+     <node pkg="timed_roslaunch" type="timed_roslaunch.sh"
+    args="10 actionlib_tutorials socket_server.launch"
+    name="timed_roslaunch" output="screen" /> -->
+
+<!-- run socket server 192.168.0.11 8080 -->
+<include file="$(find actionlib_tutorials)/launch/socket_server_multithread.launch"/>
+
+
+
+</launch>

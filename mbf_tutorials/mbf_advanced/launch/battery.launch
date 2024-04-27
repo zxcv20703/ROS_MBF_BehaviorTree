@@ -1,0 +1,3 @@
+<launch>
+  <node name="batterystate" pkg="mbf_advanced" type="batterystate.py" output="screen"/>
+</launch>
